@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">                                  
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <link rel="manifest" href="/favicon/site.webmanifest" />                                          
+    
     <title>Situs Diblokir - Internet Positif</title>
-    <style>                                                     * {
+    <style>
+        * {
             box-sizing: border-box;
-            margin: 0;                                              padding: 0;
+            margin: 0;
+            padding: 0;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }                                               
+        }
+
         body {
-            background-color: #0f172a; /* Warna latar belakang gelap (Slate 900) */                                         display: flex;
-            justify-content: center;                                align-items: center;
+            background-color: #0f172a; /* Warna latar belakang gelap (Slate 900) */
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
             color: #e2e8f0; /* Warna teks terang utama */
             padding: 20px;
@@ -29,8 +35,8 @@
             width: 100%;
             max-width: 520px; /* Batas lebar maksimal pada PC */
             text-align: center;
-            padding: clamp(25px, 5vw, 45px); /* Padding adaptif berdasarkan ukuran layar */
-            border-top: 6px solid #ef4444; /* Aksen warna merah peringatan (Red 500) */
+            padding:  clamp(25px, 5vw, 45px); /* Padding adaptif berdasarkan ukuran layar */
+            border-top: 6px solid #3b82f6; /* Aksen warna biru neon cerah */
             transition: transform 0.2s ease;
         }
 
@@ -42,7 +48,7 @@
         .logo-area {
             font-size: clamp(40px, 8vw, 56px); /* Ukuran emoji fleksibel sesuai layar */
             margin-bottom: 20px;
-            filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.2));
+            filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.2));
         }
 
         h1 {
@@ -57,72 +63,32 @@
             font-size: clamp(14px, 3.5vw, 15px); /* Ukuran paragraf adaptif */
             color: #94a3b8; /* Teks abu-abu kalem */
             line-height: 1.6;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .info-box {
             background-color: #111827; /* Kontras box informasi lebih gelap (Gray 900) */
             border: 1px solid #334155;
             border-radius: 10px;
-            padding: 20px;
-            font-size: clamp(13px, 3.2vw, 14px);
+            padding: 16px 20px;
+            font-size: clamp(12px, 3.2vw, 14px);
             color: #cbd5e1;
             margin-bottom: 28px;
-            text-align: left; /* Mengubah teks rata kiri agar informasi list lebih rapi */
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            border-bottom: 1px solid #1e293b;
-            padding-bottom: 8px;
-        }
-
-        .info-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .info-label {
-            color: #94a3b8;
-            font-weight: 500;
-        }
-
-        .info-value {
-            font-weight: 600;
             word-break: break-all;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap; /* Mencegah teks terpotong kasar di layar HP jadul */
         }
 
-        /* Tag status khusus terproteksi */
-        .status-protected {
-            color: #3b82f6;
+        .info-box span {
+            font-weight: 600;
+            color: #3b82f6; /* Warna indikator aktif */
             background-color: rgba(59, 130, 246, 0.1);
             padding: 2px 8px;
             border-radius: 6px;
             border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        /* Tag status khusus diblokir */
-        .status-blocked {
-            color: #ef4444;
-            background-color: rgba(239, 68, 68, 0.1);
-            padding: 2px 8px;
-            border-radius: 6px;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-        }
-
-        .url-text {
-            color: #f1f5f9;
-            font-family: monospace;
-            background-color: #1e293b;
-            padding: 2px 6px;
-            border-radius: 4px;
         }
 
         .footer {
@@ -134,23 +100,23 @@
         }
 
         .footer a {
-            color: #ef4444;
+            color: #3b82f6;
             text-decoration: none;
             font-weight: 600;
             display: inline-block;
             margin-top: 8px;
             padding: 6px 12px;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 6px;
-            background-color: rgba(239, 68, 68, 0.05);
+            background-color: rgba(59, 130, 246, 0.05);
             transition: all 0.2s ease;
         }
 
         .footer a:hover {
-            background-color: #ef4444;
+            background-color: #3b82f6;
             color: #ffffff;
-            border-color: #ef4444;
-            box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+            border-color: #3b82f6;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
         }
     </style>
 </head>
@@ -162,61 +128,18 @@
         <h1>Akses Diblokir</h1>
 
         <p class="notice">
-            Maaf, situs yang Anda tuju tidak dapat diakses melalui jaringan ini karena terindikasi memuat konten negatif, iklan berbahaya, atau malware yang tidak sesuai dengan regulasi keamanan internet sehat.
+            Maaf, situs yang Anda tuju tidak dapat diakses melalui jaringan ini karena terindikasi memuat konten negatif, iklan berbahaya, pelacak, atau malware yang tidak sesuai dengan regulasi keamanan internet sehat.
         </p>
 
-        <!-- Informasi Kotak Detail Gabungan -->
         <div class="info-box">
-            <div class="info-item">
-                <span class="info-label">Status Jaringan:</span>
-                <span class="info-value status-protected">TERPROTEKSI</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Situs diakses:</span>
-                <span class="info-value url-text" id="referrer-url">Mendeteksi...</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Status Akses:</span>
-                <span class="info-value status-blocked">DIBLOKIR</span>
-            </div>
+            Status Jaringan: <span>TERPROTEKSI</span>
         </div>
 
         <div class="footer">
-            Dilindungi oleh Firewall Sistem Keamanan Jaringan.<br>
+            Dilindungi oleh Firewall.<br>
             <a href="javascript:history.back()">Kembali Sekarang</a>
         </div>
     </div>
 
-    <!-- Script Deteksi Otomatis Gabungan -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // 1. Cek riwayat rujukan halaman (situs asal sebelum pengalihan)
-            let blockedUrl = document.referrer;
-
-            if (blockedUrl && blockedUrl !== "") {
-                try {
-                    let urlObj = new URL(blockedUrl);
-                    // Menampilkan hostname/domain saja agar bersih (misal: facebook.com)
-                    document.getElementById("referrer-url").textContent = urlObj.hostname;
-                } catch (e) {
-                    // Jika format bermasalah, tampilkan teks mentah
-                    document.getElementById("referrer-url").textContent = blockedUrl;
-                }
-            } else {
-                // 2. Jika referrer kosong, cek parameter URL bawaan sistem router (?url=... atau ?link=... atau ?dst=...)
-                let urlParams = new URLSearchParams(window.location.search);
-                let paramUrl = urlParams.get('url') || urlParams.get('link') || urlParams.get('dst');
-
-                if (paramUrl) {
-                    // Membersihkan skema http/https jika terbawa di parameter agar serasi
-                    let cleanParam = paramUrl.replace(/^(https?:\/\/)?(www\.)?/, '');
-                    document.getElementById("referrer-url").textContent = cleanParam.split('/')[0];
-                } else {
-                    // 3. Fallback terakhir jika dibuka manual/langsung
-                    document.getElementById("referrer-url").textContent = "Tidak Terdeteksi (Akses Langsung)";
-                }
-            }
-        });
-    </script>
 </body>
 </html>
