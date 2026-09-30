@@ -1,27 +1,22 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">                                  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />                                          
     <title>Situs Diblokir - Internet Positif</title>
-    <style>
-        * {
+    <style>                                                     * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            margin: 0;                                              padding: 0;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
+        }                                               
         body {
-            background-color: #0f172a; /* Warna latar belakang gelap (Slate 900) */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #0f172a; /* Warna latar belakang gelap (Slate 900) */                                         display: flex;
+            justify-content: center;                                align-items: center;
             min-height: 100vh;
             color: #e2e8f0; /* Warna teks terang utama */
             padding: 20px;
@@ -35,7 +30,7 @@
             max-width: 520px; /* Batas lebar maksimal pada PC */
             text-align: center;
             padding: clamp(25px, 5vw, 45px); /* Padding adaptif berdasarkan ukuran layar */
-            border-top: 6px solid #ef4444; /* Mengubah aksen warna menjadi merah peringatan (Red 500) */
+            border-top: 6px solid #ef4444; /* Aksen warna merah peringatan (Red 500) */
             transition: transform 0.2s ease;
         }
 
@@ -170,6 +165,7 @@
             Maaf, situs yang Anda tuju tidak dapat diakses melalui jaringan ini karena terindikasi memuat konten negatif, iklan berbahaya, atau malware yang tidak sesuai dengan regulasi keamanan internet sehat.
         </p>
 
+        <!-- Informasi Kotak Detail Gabungan -->
         <div class="info-box">
             <div class="info-item">
                 <span class="info-label">Status Jaringan:</span>
@@ -177,8 +173,7 @@
             </div>
             <div class="info-item">
                 <span class="info-label">Situs diakses:</span>
-                <!-- Mengosongkan teks bawaan dan menambahkan ID agar bisa diisi otomatis oleh JS -->
-                <span class="info-value url-text" id="detected-url">Memuat...</span>
+                <span class="info-value url-text" id="referrer-url">Mendeteksi...</span>
             </div>
             <div class="info-item">
                 <span class="info-label">Status Akses:</span>
@@ -192,19 +187,35 @@
         </div>
     </div>
 
-    <!-- Script Deteksi Otomatis -->
+    <!-- Script Deteksi Otomatis Gabungan -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Mengambil nama domain dari URL aktif saat ini
-            let currentDomain = window.location.hostname;
+            // 1. Cek riwayat rujukan halaman (situs asal sebelum pengalihan)
+            let blockedUrl = document.referrer;
 
-            // Jika halaman dibuka secara lokal langsung di browser (file:///...)
-            if (!currentDomain || currentDomain === "") {
-                currentDomain = "File Lokal / localhost";
+            if (blockedUrl && blockedUrl !== "") {
+                try {
+                    let urlObj = new URL(blockedUrl);
+                    // Menampilkan hostname/domain saja agar bersih (misal: facebook.com)
+                    document.getElementById("referrer-url").textContent = urlObj.hostname;
+                } catch (e) {
+                    // Jika format bermasalah, tampilkan teks mentah
+                    document.getElementById("referrer-url").textContent = blockedUrl;
+                }
+            } else {
+                // 2. Jika referrer kosong, cek parameter URL bawaan sistem router (?url=... atau ?link=... atau ?dst=...)
+                let urlParams = new URLSearchParams(window.location.search);
+                let paramUrl = urlParams.get('url') || urlParams.get('link') || urlParams.get('dst');
+
+                if (paramUrl) {
+                    // Membersihkan skema http/https jika terbawa di parameter agar serasi
+                    let cleanParam = paramUrl.replace(/^(https?:\/\/)?(www\.)?/, '');
+                    document.getElementById("referrer-url").textContent = cleanParam.split('/')[0];
+                } else {
+                    // 3. Fallback terakhir jika dibuka manual/langsung
+                    document.getElementById("referrer-url").textContent = "Tidak Terdeteksi (Akses Langsung)";
+                }
             }
-
-            // Memasukkan nama domain ke dalam elemen HTML
-            document.getElementById("detected-url").textContent = currentDomain;
         });
     </script>
 </body>
